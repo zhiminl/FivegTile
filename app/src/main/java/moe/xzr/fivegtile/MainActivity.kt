@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                 )
                 Column(modifier = Modifier.padding(2.5.dp)) {
                     Item(
-                        title = "FivegTile",
+                        title = "基于FivegTile修改",
                         subtitle = "https://github.com/libxzr/FivegTile",
                         link = "https://github.com/libxzr/FivegTile"
                     )

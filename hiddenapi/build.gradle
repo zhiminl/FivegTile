@@ -4,15 +4,19 @@ plugins {
 
 android {
     namespace 'com.android'
-    compileSdk 33
+    compileSdk 37
 
     defaultConfig {
         minSdk 29
-        targetSdk 33
+        targetSdk 37
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        aidl true
     }
 }

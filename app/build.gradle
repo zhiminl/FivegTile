@@ -1,27 +1,35 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
 
 android {
     namespace 'moe.xzr.fivegtile'
-    compileSdk 33
+    compileSdk 37
 
     defaultConfig {
         applicationId "moe.xzr.fivegtile"
         minSdk 29
-        targetSdk 33
-        versionCode 2
-        versionName "1.1"
+        targetSdk 37
+        versionCode 3
+        versionName "1.2"
 
         vectorDrawables {
             useSupportLibrary true
+        }
+        
+        // 只保留 arm64-v8a 架构，减小 APK 体积
+        ndk {
+            abiFilters 'arm64-v8a'
         }
     }
 
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,11 +42,9 @@ android {
     }
     buildFeatures {
         compose true
+        aidl true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
-    }
-    packagingOptions {
+    packaging {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
@@ -48,14 +54,15 @@ android {
 dependencies {
 
     compileOnly project(path: ':hiddenapi')
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.activity:activity-compose:1.6.1'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.0.1'
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
+    implementation 'androidx.activity:activity-compose:1.9.3'
+    implementation platform('androidx.compose:compose-bom:2024.12.01')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
     implementation "com.github.topjohnwu.libsu:core:${libsuVersion}"
     implementation "com.github.topjohnwu.libsu:service:${libsuVersion}"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation 'androidx.compose.ui:ui-tooling'
 
 }
